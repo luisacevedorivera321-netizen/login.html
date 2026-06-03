@@ -75,24 +75,29 @@ button:hover{
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
 <script>
-window.addEventListener("load", () => {
+const firebaseConfig = {
+  apiKey: "AIzaSyATKc_iMToh5GX5gR4sHINe2JA16bupd54",
+  authDomain: "reciclaya-d8795.firebaseapp.com",
+  projectId: "reciclaya-d8795",
+  storageBucket: "reciclaya-d8795.firebasestorage.app",
+  messagingSenderId: "337388568939",
+  appId: "1:337388568939:web:98e8381762c0b02a834c2e",
+  measurementId: "G-DFPQ12FZY7"
+};
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyATKc_iMToh5GX5gR4sHINe2JA16bupd54",
-    authDomain: "reciclaya-d8795.firebaseapp.com",
-    projectId: "reciclaya-d8795",
-    storageBucket: "reciclaya-d8795.firebasestorage.app",
-    messagingSenderId: "337388568939",
-    appId: "1:337388568939:web:98e8381762c0b02a834c2e",
-    measurementId: "G-DFPQ12FZY7"
-  };
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const provider = new firebase.auth.GoogleAuthProvider();
+let loginInProgress = false;
 
-  // LOGIN
-  document.getElementById("loginGoogle").addEventListener("click", () => {
+// LOGIN
+document.getElementById("loginGoogle").addEventListener("click", () => {
+
+    if (loginInProgress) return;
+    loginInProgress = true;
+
+    const provider = new firebase.auth.GoogleAuthProvider();
+
     auth.signInWithPopup(provider)
     .then((result) => {
         const user = result.user;
@@ -105,19 +110,21 @@ window.addEventListener("load", () => {
         document.getElementById("correo").textContent = user.email;
     })
     .catch((error) => {
-        console.log(error);
         alert(error.message);
+        console.log(error);
+    })
+    .finally(() => {
+        loginInProgress = false;
     });
-  });
 
-  // LOGOUT
-  document.getElementById("logout").addEventListener("click", () => {
+});
+
+// LOGOUT
+document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
         document.getElementById("login").style.display = "block";
         document.getElementById("perfil").style.display = "none";
     });
-  });
-
 });
 </script>
 
