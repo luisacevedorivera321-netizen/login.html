@@ -56,13 +56,11 @@ button:hover{
 
     <h1>♻️ RECICLAYA</h1>
 
-    <!-- LOGIN -->
     <div id="login">
         <p>Inicia sesión con Google</p>
         <button id="loginGoogle">Iniciar sesión</button>
     </div>
 
-    <!-- PERFIL -->
     <div id="perfil">
         <img id="foto">
         <h2 id="nombre"></h2>
@@ -72,29 +70,29 @@ button:hover{
 
 </div>
 
-<!-- 🔥 FIREBASE SDK -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
-<!-- 🔥 FIREBASE CONFIG + LOGIN -->
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyATKc_iMToh5GX5gR4sHINe2JA16bupd54",
-  authDomain: "reciclaya-d8795.firebaseapp.com",
-  projectId: "reciclaya-d8795",
-  storageBucket: "reciclaya-d8795.firebasestorage.app",
-  messagingSenderId: "337388568939",
-  appId: "1:337388568939:web:98e8381762c0b02a834c2e",
-  measurementId: "G-DFPQ12FZY7"
-};
+window.addEventListener("load", () => {
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+  const firebaseConfig = {
+    apiKey: "AIzaSyATKc_iMToh5GX5gR4sHINe2JA16bupd54",
+    authDomain: "reciclaya-d8795.firebaseapp.com",
+    projectId: "reciclaya-d8795",
+    storageBucket: "reciclaya-d8795.firebasestorage.app",
+    messagingSenderId: "337388568939",
+    appId: "1:337388568939:web:98e8381762c0b02a834c2e",
+    measurementId: "G-DFPQ12FZY7"
+  };
 
-// GOOGLE LOGIN
-const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
 
-document.getElementById("loginGoogle").addEventListener("click", () => {
+  // LOGIN
+  document.getElementById("loginGoogle").addEventListener("click", () => {
     auth.signInWithPopup(provider)
     .then((result) => {
         const user = result.user;
@@ -107,16 +105,19 @@ document.getElementById("loginGoogle").addEventListener("click", () => {
         document.getElementById("correo").textContent = user.email;
     })
     .catch((error) => {
+        console.log(error);
         alert(error.message);
     });
-});
+  });
 
-// LOGOUT
-document.getElementById("logout").addEventListener("click", () => {
+  // LOGOUT
+  document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
         document.getElementById("login").style.display = "block";
         document.getElementById("perfil").style.display = "none";
     });
+  });
+
 });
 </script>
 
