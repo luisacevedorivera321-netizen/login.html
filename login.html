@@ -6,7 +6,6 @@
 <title>RECICLAYA Login</title>
 
 <style>
-
 body{
     font-family: Arial, sans-serif;
     background:#f4f8f4;
@@ -38,6 +37,7 @@ button{
     padding:10px 20px;
     border-radius:8px;
     cursor:pointer;
+    margin-top:10px;
 }
 
 button:hover{
@@ -47,7 +47,6 @@ button:hover{
 #perfil{
     display:none;
 }
-
 </style>
 </head>
 
@@ -57,31 +56,68 @@ button:hover{
 
     <h1>♻️ RECICLAYA</h1>
 
+    <!-- LOGIN -->
     <div id="login">
-
         <p>Inicia sesión con Google</p>
-
-        <button id="loginGoogle">
-            Iniciar sesión
-        </button>
-
+        <button id="loginGoogle">Iniciar sesión</button>
     </div>
 
+    <!-- PERFIL -->
     <div id="perfil">
-
         <img id="foto">
-
         <h2 id="nombre"></h2>
-
         <p id="correo"></p>
-
-        <button id="logout">
-            Cerrar sesión
-        </button>
-
+        <button id="logout">Cerrar sesión</button>
     </div>
 
 </div>
+
+<!-- 🔥 FIREBASE SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+<!-- 🔥 FIREBASE CONFIG + LOGIN -->
+<script>
+const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "reciclaya-d8795.firebaseapp.com",
+    projectId: "reciclaya-d8795",
+    storageBucket: "reciclaya-d8795.appspot.com",
+    messagingSenderId: "TU_MESSAGING_ID",
+    appId: "TU_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// GOOGLE LOGIN
+const provider = new firebase.auth.GoogleAuthProvider();
+
+document.getElementById("loginGoogle").addEventListener("click", () => {
+    auth.signInWithPopup(provider)
+    .then((result) => {
+        const user = result.user;
+
+        document.getElementById("login").style.display = "none";
+        document.getElementById("perfil").style.display = "block";
+
+        document.getElementById("foto").src = user.photoURL;
+        document.getElementById("nombre").textContent = user.displayName;
+        document.getElementById("correo").textContent = user.email;
+    })
+    .catch((error) => {
+        alert(error.message);
+    });
+});
+
+// LOGOUT
+document.getElementById("logout").addEventListener("click", () => {
+    auth.signOut().then(() => {
+        document.getElementById("login").style.display = "block";
+        document.getElementById("perfil").style.display = "none";
+    });
+});
+</script>
 
 </body>
 </html>
