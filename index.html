@@ -81,6 +81,40 @@ button:hover{
         <p id="correo"></p>
         <button id="logout">Cerrar sesión</button>
     </div>
+    <div id="contenido" style="display:none;">
+
+    <h2>🏠 Bienvenido a RECICLAYA</h2>
+
+    <hr>
+
+    <h3>♻️ Productos</h3>
+
+    <p>🧴 Botellas de plástico</p>
+    <p>🥫 Latas de aluminio</p>
+    <p>📦 Cartón reciclado</p>
+
+    <hr>
+
+    <h3>💰 Precios</h3>
+
+    <p>Cobre — S/ 40.00 por kilo</p>
+    <p>Bronce — S/ 20.00 por kilo</p>
+    <p>Aluminio — S/ 5.00 por kilo</p>
+    <p>Fierro — S/ 0.50 por kilo</p>
+    <p>Cartón — S/ 0.25 por kilo</p>
+
+    <hr>
+
+    <h3>ℹ️ Acerca de Nosotros</h3>
+
+    <p>
+        RECICLAYA conecta ciudadanos y recicladores,
+        facilitando la compra, venta y recolección
+        de materiales reciclables para promover el
+        cuidado del medio ambiente.
+    </p>
+
+</div>
 
 </div>
 
@@ -118,6 +152,7 @@ document.getElementById("loginGoogle").addEventListener("click", () => {
 
         document.getElementById("login").style.display = "none";
         document.getElementById("perfil").style.display = "block";
+        document.getElementById("contenido").style.display = "block";
 
         document.getElementById("foto").src = user.photoURL;
         document.getElementById("nombre").textContent = user.displayName;
@@ -138,6 +173,7 @@ document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
         document.getElementById("login").style.display = "block";
         document.getElementById("perfil").style.display = "none";
+        document.getElementById("contenido").style.display = "none";
     });
 });
 </script>
