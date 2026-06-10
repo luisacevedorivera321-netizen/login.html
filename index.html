@@ -31,7 +31,7 @@ body{
     border-radius:15px;
     box-shadow:0 0 25px rgba(0,0,0,.2);
     text-align:center;
-    width:900px;
+    width:1100px;
     backdrop-filter: blur(10px);
 }
     .panel{
@@ -95,10 +95,6 @@ button:hover{
 
     <h1>♻️ RECICLAYA</h1>
 
-    <div id="login">
-        <p>Inicia sesión con Google</p>
-        <button id="loginGoogle">Iniciar sesión</button>
-    </div>
 
     <div id="perfil">
         <img id="foto">
@@ -110,7 +106,7 @@ button:hover{
     <div class="panel">
 
         <div class="menu">
-
+<button id="loginGoogle">🔑 Iniciar sesión</button>
             <button onclick="mostrarProductos()">📦 Productos</button>
 
 <button onclick="mostrarPrecios()">💰 Precios</button>
@@ -189,9 +185,17 @@ document.getElementById("loginGoogle").addEventListener("click", () => {
 // LOGOUT
 document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
-        document.getElementById("login").style.display = "block";
-        document.getElementById("perfil").style.display = "none";
 
+        document.getElementById("login").style.display = "block";
+
+        document.getElementById("foto").src = "";
+        document.getElementById("nombre").textContent = "";
+        document.getElementById("correo").textContent = "";
+
+        document.querySelector(".contenido-panel").innerHTML = `
+            <h2>Bienvenido a RECICLAYA ♻️</h2>
+            <p>Selecciona una opción del menú para comenzar.</p>
+        `;
     });
 });
     function mostrarProductos(){
@@ -224,6 +228,15 @@ function mostrarNosotros(){
 }
 
 function mostrarPerfil(){
+
+    if(document.getElementById("nombre").textContent === ""){
+        document.querySelector(".contenido-panel").innerHTML = `
+            <h2>👤 Perfil</h2>
+            <p>⚠️ No has iniciado sesión.</p>
+        `;
+        return;
+    }
+
     document.querySelector(".contenido-panel").innerHTML = `
         <h2>👤 Perfil</h2>
         <img src="${document.getElementById("foto").src}" width="100">
