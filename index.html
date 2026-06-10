@@ -170,7 +170,7 @@ document.getElementById("loginGoogle").addEventListener("click", () => {
         const user = result.user;
 
         document.getElementById("login").style.display = "none";
-        document.getElementById("contenido").style.display = "block";
+    
 
         document.getElementById("foto").src = user.photoURL;
         document.getElementById("nombre").textContent = user.displayName;
@@ -191,7 +191,7 @@ document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
         document.getElementById("login").style.display = "block";
         document.getElementById("perfil").style.display = "none";
-        document.getElementById("contenido").style.display = "none";
+
     });
 });
     function mostrarProductos(){
