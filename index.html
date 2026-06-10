@@ -14,7 +14,7 @@ body{
     height:100vh;
     margin:0;
 
-    background: linear-gradient(-45deg, #00c853, #00b0ff, #7c4dff, #ff4081);
+    background: linear-gradient(-45deg, #2e7d32, #43a047, #26c6da, #0288d1);
     background-size: 400% 400%;
     animation: gradientBG 10s ease infinite;
 }
@@ -115,7 +115,7 @@ button:hover{
 
 <button onclick="mostrarPerfil()">👤 Perfil</button>
             <button onclick="irFacebook()">👥 Comunidad</button>
-            <button id="logout">🚪 Cerrar sesión</button>
+            <button id="logout" style="display:none;">🚪 Cerrar sesión</button>
         </div>
 
         <div class="contenido-panel">
@@ -165,12 +165,14 @@ document.getElementById("loginGoogle").addEventListener("click", () => {
     .then((result) => {
         const user = result.user;
 
-        document.getElementById("login").style.display = "none";
     
 
         document.getElementById("foto").src = user.photoURL;
         document.getElementById("nombre").textContent = user.displayName;
         document.getElementById("correo").textContent = user.email;
+
+        document.getElementById("logout").style.display = "block";
+        document.getElementById("loginGoogle").style.display = "none";
     })
     .catch((error) => {
         alert(error.message);
@@ -186,8 +188,9 @@ document.getElementById("loginGoogle").addEventListener("click", () => {
 document.getElementById("logout").addEventListener("click", () => {
     auth.signOut().then(() => {
 
-        document.getElementById("login").style.display = "block";
-
+document.getElementById("logout").style.display = "none";
+        document.getElementById("loginGoogle").style.display = "block";
+        
         document.getElementById("foto").src = "";
         document.getElementById("nombre").textContent = "";
         document.getElementById("correo").textContent = "";
