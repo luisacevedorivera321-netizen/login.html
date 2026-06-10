@@ -118,6 +118,7 @@ button:hover{
 <button onclick="mostrarNosotros()">ℹ️ Nosotros</button>
 
 <button onclick="mostrarPerfil()">👤 Perfil</button>
+            <button onclick="irFacebook()">👥 Comunidad</button>
             <button id="logout">🚪 Cerrar sesión</button>
         </div>
 
@@ -229,6 +230,12 @@ function mostrarPerfil(){
         <p><strong>Nombre:</strong> ${document.getElementById("nombre").textContent}</p>
         <p><strong>Correo:</strong> ${document.getElementById("correo").textContent}</p>
     `;
+}
+    function irFacebook(){
+    window.open(
+        "https://www.facebook.com/groups/726601160841052/",
+        "_blank"
+    );
 }
 </script>
 
